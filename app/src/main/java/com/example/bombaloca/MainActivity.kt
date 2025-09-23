@@ -17,16 +17,22 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var titleTextView: TextView
     private lateinit var questionTextView: TextView
     private lateinit var argentinaMapView: ArgentinaMapView
-    private lateinit var bomb1: ImageView
-    private lateinit var bomb2: ImageView
-    private lateinit var bomb3: ImageView
+    private lateinit var livesCountText: TextView
     private lateinit var restartButton: Button
     private lateinit var exitButton: Button
     private lateinit var explosionImageView: ImageView
     private lateinit var victoryTextView: TextView
+    
+    // Controles de zoom y pan
+    private lateinit var zoomInButton: Button
+    private lateinit var zoomOutButton: Button
+    private lateinit var resetButton: Button
+    private lateinit var upButton: Button
+    private lateinit var downButton: Button
+    private lateinit var leftButton: Button
+    private lateinit var rightButton: Button
     
     private var provinces = mutableListOf<Province>()
     private var pendingProvinces = mutableListOf<Province>()
@@ -43,16 +49,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initialize views
-        titleTextView = findViewById(R.id.titleTextView)
         questionTextView = findViewById(R.id.questionTextView)
         argentinaMapView = findViewById(R.id.argentinaMapView)
-        bomb1 = findViewById(R.id.bomb1)
-        bomb2 = findViewById(R.id.bomb2)
-        bomb3 = findViewById(R.id.bomb3)
+        livesCountText = findViewById(R.id.livesCountText)
         restartButton = findViewById(R.id.restartButton)
         exitButton = findViewById(R.id.exitButton)
         explosionImageView = findViewById(R.id.explosionImageView)
         victoryTextView = findViewById(R.id.victoryTextView)
+        
+        // Initialize control buttons
+        zoomInButton = findViewById(R.id.zoomInButton)
+        zoomOutButton = findViewById(R.id.zoomOutButton)
+        resetButton = findViewById(R.id.resetButton)
+        upButton = findViewById(R.id.upButton)
+        downButton = findViewById(R.id.downButton)
+        leftButton = findViewById(R.id.leftButton)
+        rightButton = findViewById(R.id.rightButton)
 
         // Initialize vibrator
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -71,6 +83,35 @@ class MainActivity : AppCompatActivity() {
 
         exitButton.setOnClickListener {
             finish()
+        }
+        
+        // Set up map control listeners
+        zoomInButton.setOnClickListener {
+            argentinaMapView.zoomIn()
+        }
+        
+        zoomOutButton.setOnClickListener {
+            argentinaMapView.zoomOut()
+        }
+        
+        resetButton.setOnClickListener {
+            argentinaMapView.resetPosition()
+        }
+        
+        upButton.setOnClickListener {
+            argentinaMapView.panUp()
+        }
+        
+        downButton.setOnClickListener {
+            argentinaMapView.panDown()
+        }
+        
+        leftButton.setOnClickListener {
+            argentinaMapView.panLeft()
+        }
+        
+        rightButton.setOnClickListener {
+            argentinaMapView.panRight()
         }
 
         // Start the game
@@ -189,9 +230,15 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun updateLivesDisplay() {
-        bomb1.visibility = if (lives >= 1) View.VISIBLE else View.INVISIBLE
-        bomb2.visibility = if (lives >= 2) View.VISIBLE else View.INVISIBLE
-        bomb3.visibility = if (lives >= 3) View.VISIBLE else View.INVISIBLE
+        livesCountText.text = lives.toString()
+        
+        // Cambiar color según las vidas restantes
+        livesCountText.setTextColor(when(lives) {
+            3 -> android.graphics.Color.parseColor("#4CAF50") // Verde
+            2 -> android.graphics.Color.parseColor("#FF9800") // Naranja  
+            1 -> android.graphics.Color.parseColor("#F44336") // Rojo
+            else -> android.graphics.Color.parseColor("#9E9E9E") // Gris
+        })
     }
     
     private fun showVictory() {

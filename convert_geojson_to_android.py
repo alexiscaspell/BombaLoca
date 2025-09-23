@@ -14,14 +14,14 @@ def geo_to_canvas(lon, lat, bounds, canvas_width=400, canvas_height=600):
     y = canvas_height - ((lat - min_lat) / (max_lat - min_lat)) * canvas_height
     return x, y
 
-def simplify_path(coords, tolerance=2.0):
-    """Simplifica un path para reducir el número de puntos (algoritmo Douglas-Peucker simplificado)"""
+def simplify_path(coords, tolerance=1.0):
+    """Simplifica un path para reducir el número de puntos manteniendo la precisión en los límites"""
     if len(coords) <= 2:
         return coords
     
-    # Para Android, necesitamos mantener un número razonable de puntos
-    # Tomar cada N puntos para simplificar
-    step = max(1, len(coords) // 50)  # Máximo 50 puntos por provincia
+    # Reducir la simplificación para mantener más detalle en los límites
+    # Usar un step más conservador para evitar gaps entre provincias
+    step = max(1, len(coords) // 80)  # Aumentar a 80 puntos por provincia para más precisión
     simplified = []
     for i in range(0, len(coords), step):
         simplified.append(coords[i])
@@ -143,7 +143,7 @@ def main():
             xml_content += f'    <path android:name="{path_name}"\n'
             xml_content += f'        android:fillColor="#E0E0E0"\n'
             xml_content += f'        android:strokeColor="#666666"\n'
-            xml_content += f'        android:strokeWidth="0.5"\n'
+            xml_content += f'        android:strokeWidth="0"\n'
             xml_content += f'        android:pathData="{path_data}"/>\n\n'
             
             print(f"✅ Procesada: {province_name} -> {path_name}")
