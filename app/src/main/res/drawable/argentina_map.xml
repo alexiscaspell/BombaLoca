@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="600dp"
+    android:viewportWidth="400"
+    android:viewportHeight="600">
+    
+    <!-- Buenos Aires -->
+    <path android:name="buenos_aires"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M120,350 L180,350 L180,400 L200,420 L220,440 L240,460 L220,480 L200,500 L180,520 L160,540 L140,560 L120,540 L100,520 L80,500 L60,480 L80,460 L100,440 L120,420 Z"/>
+    
+    <!-- Catamarca -->
+    <path android:name="catamarca"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M140,200 L180,200 L200,220 L180,240 L160,260 L140,280 L120,260 L120,240 L120,220 Z"/>
+    
+    <!-- Chaco -->
+    <path android:name="chaco"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M200,120 L260,120 L280,140 L280,160 L260,180 L240,200 L220,180 L200,160 Z"/>
+    
+    <!-- Chubut -->
+    <path android:name="chubut"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M80,440 L140,440 L160,460 L140,480 L120,500 L100,520 L80,500 L60,480 Z"/>
+    
+    <!-- Córdoba -->
+    <path android:name="cordoba"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M160,280 L200,280 L220,300 L200,320 L180,340 L160,320 L140,300 Z"/>
+    
+    <!-- Corrientes -->
+    <path android:name="corrientes"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M260,180 L300,180 L320,200 L300,220 L280,240 L260,220 L240,200 Z"/>
+    
+    <!-- Entre Ríos -->
+    <path android:name="entre_rios"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M220,300 L260,300 L280,320 L260,340 L240,360 L220,340 L200,320 Z"/>
+    
+    <!-- Formosa -->
+    <path android:name="formosa"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M200,80 L280,80 L300,100 L280,120 L260,140 L240,120 L220,100 L200,120 Z"/>
+    
+    <!-- Jujuy -->
+    <path android:name="jujuy"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M140,80 L180,80 L200,100 L180,120 L160,140 L140,120 L120,100 Z"/>
+    
+    <!-- La Pampa -->
+    <path android:name="la_pampa"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M120,360 L180,360 L200,380 L180,400 L160,420 L140,400 L120,380 Z"/>
+    
+    <!-- La Rioja -->
+    <path android:name="la_rioja"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M100,200 L140,200 L160,220 L140,240 L120,260 L100,240 L80,220 Z"/>
+    
+    <!-- Mendoza -->
+    <path android:name="mendoza"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M80,280 L120,280 L140,300 L120,320 L100,340 L80,320 L60,300 Z"/>
+    
+    <!-- Misiones -->
+    <path android:name="misiones"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M300,140 L340,140 L360,160 L340,180 L320,200 L300,180 L280,160 Z"/>
+    
+    <!-- Neuquén -->
+    <path android:name="neuquen"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M60,380 L120,380 L140,400 L120,420 L100,440 L80,420 L60,400 Z"/>
+    
+    <!-- Río Negro -->
+    <path android:name="rio_negro"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M80,420 L140,420 L160,440 L140,460 L120,480 L100,460 L80,440 Z"/>
+    
+    <!-- Salta -->
+    <path android:name="salta"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M140,120 L200,120 L220,140 L200,160 L180,180 L160,160 L140,140 Z"/>
+    
+    <!-- San Juan -->
+    <path android:name="san_juan"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M80,240 L120,240 L140,260 L120,280 L100,300 L80,280 L60,260 Z"/>
+    
+    <!-- San Luis -->
+    <path android:name="san_luis"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M120,320 L160,320 L180,340 L160,360 L140,380 L120,360 L100,340 Z"/>
+    
+    <!-- Santa Cruz -->
+    <path android:name="santa_cruz"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M80,480 L140,480 L160,500 L140,520 L120,540 L100,560 L80,540 L60,520 L40,500 L60,480 Z"/>
+    
+    <!-- Santa Fe -->
+    <path android:name="santa_fe"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M200,240 L260,240 L280,260 L260,280 L240,300 L220,280 L200,260 Z"/>
+    
+    <!-- Santiago del Estero -->
+    <path android:name="santiago_del_estero"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M180,180 L240,180 L260,200 L240,220 L220,240 L200,220 L180,200 Z"/>
+    
+    <!-- Tierra del Fuego -->
+    <path android:name="tierra_del_fuego"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M100,560 L140,560 L160,580 L140,600 L120,580 L100,580 L80,580 Z"/>
+    
+    <!-- Tucumán -->
+    <path android:name="tucuman"
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#666666"
+        android:strokeWidth="1"
+        android:pathData="M160,160 L200,160 L220,180 L200,200 L180,220 L160,200 L140,180 Z"/>
+    
+</vector>

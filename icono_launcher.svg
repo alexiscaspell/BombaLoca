@@ -1,0 +1,22 @@
+<svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Fondo celeste y blanco (colores argentinos) -->
+<rect width="108" height="54" fill="#75AADB"/>
+<rect y="54" width="108" height="54" fill="#FFFFFF"/>
+
+<!-- Bomba central -->
+<circle cx="54" cy="54" r="25" fill="#FF5722"/>
+<circle cx="54" cy="54" r="20" fill="#D32F2F"/>
+
+<!-- Mecha de la bomba -->
+<path d="M54 29 L58 25 L56 27 L52 25 Z" fill="#FFC107"/>
+
+<!-- Destello en la bomba -->
+<circle cx="48" cy="48" r="3" fill="#FFFFFF" opacity="0.7"/>
+
+<!-- Texto "BA" (Buenos Aires) -->
+<text x="46" y="60" font-size="14" font-family="Arial, sans-serif" font-weight="bold" fill="#FFFFFF">BA</text>
+
+<!-- Pequeña bandera argentina -->
+<rect x="75" y="20" width="20" height="12" fill="#75AADB"/>
+<rect x="75" y="26" width="20" height="6" fill="#FFFFFF"/>
+</svg>

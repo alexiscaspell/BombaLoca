@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Bomba central -->
+    <path android:fillColor="#FF5722"
+        android:pathData="M54,29C68.36,29 80,40.64 80,55C80,69.36 68.36,81 54,81C39.64,81 28,69.36 28,55C28,40.64 39.64,29 54,29Z"/>
+    <path android:fillColor="#D32F2F"
+        android:pathData="M54,33C66.15,33 76,42.85 76,55C76,67.15 66.15,77 54,77C41.85,77 32,67.15 32,55C32,42.85 41.85,33 54,33Z"/>
+    
+    <!-- Mecha de la bomba -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M54,29L58,22L56,26L52,22Z"/>
+    <path android:fillColor="#FF8F00"
+        android:pathData="M56,22C57.1,22 58,21.1 58,20C58,18.9 57.1,18 56,18C54.9,18 54,18.9 54,20C54,21.1 54.9,22 56,22Z"/>
+    
+    <!-- Destello en la bomba -->
+    <path android:fillColor="#FFFFFF"
+        android:fillAlpha="0.8"
+        android:pathData="M48,48C50.21,48 52,46.21 52,44C52,41.79 50.21,40 48,40C45.79,40 44,41.79 44,44C44,46.21 45.79,48 48,48Z"/>
+    
+    <!-- Silueta de Argentina simplificada -->
+    <path android:fillColor="#4CAF50"
+        android:fillAlpha="0.6"
+        android:pathData="M20,35L25,30L35,32L40,28L45,35L42,42L35,50L30,55L25,50L22,42Z"/>
+    
+    <!-- Pequeña bandera argentina -->
+    <path android:fillColor="#75AADB"
+        android:pathData="M75,20L95,20L95,26L75,26Z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M75,26L95,26L95,32L75,32Z"/>
+    <path android:fillColor="#75AADB"
+        android:pathData="M75,32L95,32L95,38L75,38Z"/>
+</vector>

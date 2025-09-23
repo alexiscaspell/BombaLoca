@@ -1,0 +1,28 @@
+<svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Fondo circular con degradado celeste y blanco -->
+<defs>
+  <linearGradient id="argGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" style="stop-color:#75AADB;stop-opacity:1" />
+    <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:1" />
+    <stop offset="100%" style="stop-color:#75AADB;stop-opacity:1" />
+  </linearGradient>
+</defs>
+
+<circle cx="54" cy="54" r="54" fill="url(#argGradient)"/>
+
+<!-- Bomba central -->
+<circle cx="54" cy="54" r="22" fill="#FF5722"/>
+<circle cx="54" cy="54" r="18" fill="#D32F2F"/>
+
+<!-- Mecha de la bomba -->
+<path d="M54 32 L58 28 L56 30 L52 28 Z" fill="#FFC107"/>
+
+<!-- Destello en la bomba -->
+<circle cx="49" cy="49" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+
+<!-- Mapa de Argentina simplificado -->
+<path d="M20 35 L25 30 L35 32 L40 28 L45 35 L35 45 L30 50 L25 45 L20 40 Z" fill="#4CAF50" opacity="0.7"/>
+
+<!-- Texto "💣" (emoji de bomba) -->
+<text x="46" y="62" font-size="16" font-family="Arial, sans-serif">💣</text>
+</svg>

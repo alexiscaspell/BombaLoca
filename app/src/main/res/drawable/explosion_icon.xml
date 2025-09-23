@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    
+    <!-- Central explosion -->
+    <path android:fillColor="#FF5722"
+        android:pathData="M50,20L60,40L80,30L60,50L75,70L50,60L25,70L40,50L20,30L40,40Z"/>
+    
+    <!-- Outer explosion rays -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M50,10L55,25L50,40L45,25Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M75,25L60,30L45,25L60,20Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M85,50L70,45L55,50L70,55Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M75,75L60,70L45,75L60,80Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M50,90L45,75L50,60L55,75Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M25,75L40,70L55,75L40,80Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M15,50L30,45L45,50L30,55Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M25,25L40,30L55,25L40,20Z"/>
+    
+</vector>
