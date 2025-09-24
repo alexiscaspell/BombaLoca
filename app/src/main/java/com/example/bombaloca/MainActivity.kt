@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private var conqueredCount = 0
     
     private var mediaPlayer: MediaPlayer? = null
+    private var explosionPlayer: MediaPlayer? = null  // Reproductor separado para explosiones
     private lateinit var vibrator: Vibrator
     private var isGameActive = false
 
@@ -275,17 +276,43 @@ class MainActivity : AppCompatActivity() {
     private fun showGameOver() {
         isGameActive = false
         
-        // Play nuclear explosion sound
+        // Stop only the regular game audio, not the explosion
+        mediaPlayer?.release()
+        mediaPlayer = null
+        
+        // Stop any previous explosion audio
+        explosionPlayer?.release()
+        explosionPlayer = null
+        
+        // Play nuclear explosion sound with dedicated player
         try {
-            val explosionSound = MediaPlayer.create(this, R.raw.nuclear_explosion)
-            explosionSound?.let { player ->
+            explosionPlayer = MediaPlayer.create(this, R.raw.nuclear_explosion)
+            explosionPlayer?.let { player ->
+                // Set volume to maximum for dramatic effect
+                player.setVolume(1.0f, 1.0f)
+                
+                // Don't release immediately - let it play completely
                 player.setOnCompletionListener { mp ->
+                    // Only release after the audio completes naturally
                     mp.release()
+                    explosionPlayer = null
                 }
-                player.start()
+                
+                player.setOnErrorListener { mp, what, extra ->
+                    mp.release()
+                    explosionPlayer = null
+                    true
+                }
+                
+                // Ensure the player is prepared before starting
+                player.prepareAsync()
+                player.setOnPreparedListener { mp ->
+                    mp.start()
+                }
             }
         } catch (e: Exception) {
             // Handle audio error gracefully
+            explosionPlayer = null
         }
         
         // Show multiple explosion GIFs using Glide with staggered timing
@@ -294,10 +321,10 @@ class MainActivity : AppCompatActivity() {
         // Update question text
         questionTextView.text = "💥🇦🇷 ¡EXPLOTÓ ARGENTINA! 🇦🇷💥\n¡La Bomba Loca ganó esta vez!"
         
-        // Show restart/exit buttons after GIF has time to play
+        // Show restart/exit buttons after giving enough time for the 7-second audio
         Handler(Looper.getMainLooper()).postDelayed({
             showEndGameButtons()
-        }, 3000) // 3 seconds to let the GIF play
+        }, 8000) // 8 seconds to ensure the 7-second audio plays completely
     }
     
     private fun showEndGameButtons() {
@@ -322,11 +349,25 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this).clear(explosionImageView2)
         Glide.with(this).clear(explosionImageView3)
         
+        // Stop game audio
+        mediaPlayer?.release()
+        mediaPlayer = null
+        
+        // Stop explosion audio separately
+        explosionPlayer?.release()
+        explosionPlayer = null
+        
         restartButton.visibility = View.GONE
         exitButton.visibility = View.GONE
     }
 
     private fun restartGame() {
+        // Stop explosion audio immediately when restarting
+        explosionPlayer?.release()
+        explosionPlayer = null
+        
+        // Hide end game elements and start new game
+        hideEndGameElements()
         startGame()
     }
     
@@ -373,7 +414,12 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         isGameActive = false
+        
+        // Clean up both media players to prevent memory leaks
         mediaPlayer?.release()
         mediaPlayer = null
+        
+        explosionPlayer?.release()
+        explosionPlayer = null
     }
 }

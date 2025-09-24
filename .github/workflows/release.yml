@@ -27,7 +27,7 @@ jobs:
 
       - name: Rename APK
         run: |
-          cp app-debug.apk ${{ env.APK_FILENAME }}
+          cp bomba-loca.apk ${{ env.APK_FILENAME }}
 
       - name: Create Release
         id: create_release
