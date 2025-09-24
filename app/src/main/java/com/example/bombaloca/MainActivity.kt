@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.View
@@ -14,15 +16,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var questionTextView: TextView
     private lateinit var argentinaMapView: ArgentinaMapView
-    private lateinit var livesCountText: TextView
+    private lateinit var bombStateIcon: ImageView
     private lateinit var restartButton: Button
     private lateinit var exitButton: Button
     private lateinit var explosionImageView: ImageView
+    private lateinit var explosionImageView2: ImageView
+    private lateinit var explosionImageView3: ImageView
     private lateinit var victoryTextView: TextView
     
     // Controles de zoom y pan
@@ -51,10 +56,12 @@ class MainActivity : AppCompatActivity() {
         // Initialize views
         questionTextView = findViewById(R.id.questionTextView)
         argentinaMapView = findViewById(R.id.argentinaMapView)
-        livesCountText = findViewById(R.id.livesCountText)
+        bombStateIcon = findViewById(R.id.bombStateIcon)
         restartButton = findViewById(R.id.restartButton)
         exitButton = findViewById(R.id.exitButton)
         explosionImageView = findViewById(R.id.explosionImageView)
+        explosionImageView2 = findViewById(R.id.explosionImageView2)
+        explosionImageView3 = findViewById(R.id.explosionImageView3)
         victoryTextView = findViewById(R.id.victoryTextView)
         
         // Initialize control buttons
@@ -151,8 +158,6 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun handleWrongAnswer(province: Province) {
-        playWrongAnswerEffect()
-        
         // Flash the clicked province red
         argentinaMapView.flashProvince(province.pathName, android.graphics.Color.RED)
         
@@ -162,7 +167,11 @@ class MainActivity : AppCompatActivity() {
         
         // Check if game over
         if (lives <= 0) {
+            // Game over - only explosion sound, no error sound
             showGameOver()
+        } else {
+            // Still have lives - play error sound
+            playWrongAnswerEffect()
         }
     }
     
@@ -226,19 +235,18 @@ class MainActivity : AppCompatActivity() {
         
         // Select random province from pending list
         currentProvince = pendingProvinces.random()
-        questionTextView.text = "Busca: ${currentProvince!!.name}"
+        questionTextView.text = "🎯 Desconecta el cable de: ${currentProvince!!.name}"
     }
     
     private fun updateLivesDisplay() {
-        livesCountText.text = lives.toString()
-        
-        // Cambiar color según las vidas restantes
-        livesCountText.setTextColor(when(lives) {
-            3 -> android.graphics.Color.parseColor("#4CAF50") // Verde
-            2 -> android.graphics.Color.parseColor("#FF9800") // Naranja  
-            1 -> android.graphics.Color.parseColor("#F44336") // Rojo
-            else -> android.graphics.Color.parseColor("#9E9E9E") // Gris
-        })
+        // Cambiar el icono de la bomba según las vidas restantes
+        val bombDrawable = when(lives) {
+            3 -> R.drawable.bomb_healthy  // Bomba sana
+            2 -> R.drawable.bomb_damaged  // Bomba dañada
+            1 -> R.drawable.bomb_critical // Bomba crítica
+            else -> R.drawable.bomb_critical // Bomba crítica (sin vidas)
+        }
+        bombStateIcon.setImageResource(bombDrawable)
     }
     
     private fun showVictory() {
@@ -267,28 +275,29 @@ class MainActivity : AppCompatActivity() {
     private fun showGameOver() {
         isGameActive = false
         
-        // Show explosion animation
-        explosionImageView.visibility = View.VISIBLE
-        val scaleX = ObjectAnimator.ofFloat(explosionImageView, "scaleX", 0f, 1.5f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(explosionImageView, "scaleY", 0f, 1.5f, 1f)
-        val alpha = ObjectAnimator.ofFloat(explosionImageView, "alpha", 0f, 1f, 0.8f)
-        val rotation = ObjectAnimator.ofFloat(explosionImageView, "rotation", 0f, 360f)
+        // Play nuclear explosion sound
+        try {
+            val explosionSound = MediaPlayer.create(this, R.raw.nuclear_explosion)
+            explosionSound?.let { player ->
+                player.setOnCompletionListener { mp ->
+                    mp.release()
+                }
+                player.start()
+            }
+        } catch (e: Exception) {
+            // Handle audio error gracefully
+        }
         
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(scaleX, scaleY, alpha, rotation)
-        animatorSet.duration = 1500
-        animatorSet.interpolator = AccelerateDecelerateInterpolator()
-        animatorSet.start()
+        // Show multiple explosion GIFs using Glide with staggered timing
+        showExplosionSequence()
         
         // Update question text
-        questionTextView.text = "💥 ¡GAME OVER! 💥\nTe quedaste sin vidas"
+        questionTextView.text = "💥🇦🇷 ¡EXPLOTÓ ARGENTINA! 🇦🇷💥\n¡La Bomba Loca ganó esta vez!"
         
-        // Show restart/exit buttons after animation
-        animatorSet.addListener(object : android.animation.AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: android.animation.Animator) {
-                showEndGameButtons()
-            }
-        })
+        // Show restart/exit buttons after GIF has time to play
+        Handler(Looper.getMainLooper()).postDelayed({
+            showEndGameButtons()
+        }, 3000) // 3 seconds to let the GIF play
     }
     
     private fun showEndGameButtons() {
@@ -299,14 +308,66 @@ class MainActivity : AppCompatActivity() {
     private fun hideEndGameElements() {
         victoryTextView.visibility = View.GONE
         victoryTextView.alpha = 0f
+        
+        // Hide all explosion views
         explosionImageView.visibility = View.GONE
         explosionImageView.alpha = 0f
+        explosionImageView2.visibility = View.GONE
+        explosionImageView2.alpha = 0f
+        explosionImageView3.visibility = View.GONE
+        explosionImageView3.alpha = 0f
+        
+        // Clear any GIFs from Glide
+        Glide.with(this).clear(explosionImageView)
+        Glide.with(this).clear(explosionImageView2)
+        Glide.with(this).clear(explosionImageView3)
+        
         restartButton.visibility = View.GONE
         exitButton.visibility = View.GONE
     }
 
     private fun restartGame() {
         startGame()
+    }
+    
+    private fun showExplosionSequence() {
+        // Explosión central - inmediata y más grande
+        showSingleExplosion(explosionImageView, 0, 1.4f)
+        
+        // Explosión superior izquierda - después de 200ms
+        showSingleExplosion(explosionImageView2, 200, 1.1f)
+        
+        // Explosión inferior derecha - después de 400ms
+        showSingleExplosion(explosionImageView3, 400, 1.2f)
+    }
+    
+    private fun showSingleExplosion(imageView: ImageView, delayMs: Long, maxScale: Float) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            imageView.visibility = View.VISIBLE
+            
+            // Load GIF using Glide
+            try {
+                Glide.with(this)
+                    .asGif()
+                    .load("file:///android_asset/explosion.gif")
+                    .into(imageView)
+            } catch (e: Exception) {
+                // Fallback to static explosion icon if GIF fails
+                imageView.setImageResource(R.drawable.explosion_icon)
+            }
+            
+            // Animate the explosion appearance
+            val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 0f, maxScale)
+            val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 0f, maxScale)
+            val alpha = ObjectAnimator.ofFloat(imageView, "alpha", 0f, 1f)
+            val rotation = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f * (0.5f + Math.random().toFloat()))
+            
+            val animatorSet = AnimatorSet()
+            animatorSet.playTogether(scaleX, scaleY, alpha, rotation)
+            animatorSet.duration = 600 + (Math.random() * 400).toLong() // Variación aleatoria
+            animatorSet.interpolator = OvershootInterpolator()
+            animatorSet.start()
+        }, delayMs)
     }
 
     override fun onDestroy() {

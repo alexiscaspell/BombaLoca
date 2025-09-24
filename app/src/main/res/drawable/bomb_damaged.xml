@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Cuerpo de la bomba (dañada - con grietas) -->
+    <path android:fillColor="#2C2C2C"
+        android:pathData="M12,8c-3.3,0 -6,2.7 -6,6c0,3.3 2.7,6 6,6s6,-2.7 6,-6C18,10.7 15.3,8 12,8z"/>
+    
+    <!-- Grietas en la bomba -->
+    <path android:fillColor="#FF4444"
+        android:strokeColor="#CC0000"
+        android:strokeWidth="0.3"
+        android:pathData="M10,12l2,-1l1,2l-1,1l-1,-1z"/>
+    <path android:fillColor="#FF4444"
+        android:strokeColor="#CC0000"
+        android:strokeWidth="0.3"
+        android:pathData="M14,10l1,1l-0.5,2l-1,-0.5z"/>
+    
+    <!-- Brillo reducido -->
+    <path android:fillColor="#3A3A3A"
+        android:pathData="M9,11c-0.8,0 -1.5,0.7 -1.5,1.5c0,0.4 0.2,0.8 0.5,1.1c0.1,-0.3 0.4,-0.5 0.8,-0.6C8.9,12.8 9,12.6 9,12.5C9,11.7 9,11.2 9,11z"/>
+    
+    <!-- Mecha de la bomba (más corta) -->
+    <path android:fillColor="#8B4513"
+        android:strokeColor="#654321"
+        android:strokeWidth="0.5"
+        android:pathData="M12,8l0.8,-1.5l0.3,-0.8l-0.2,-0.6l0.6,-0.5l-0.4,-0.4l-0.6,0.2l-0.5,-0.6l-0.8,0.4L12,5l-0.8,0.8L12,8z"/>
+    
+    <!-- Chispa más intensa -->
+    <path android:fillColor="#FF4500"
+        android:pathData="M12.3,4.2l0.4,0.4l-0.4,0.4l-0.4,-0.4z"/>
+    <path android:fillColor="#FF0000"
+        android:pathData="M12,3.8l0.8,0.8l-0.8,0.8l-0.8,-0.8z"/>
+    
+</vector>

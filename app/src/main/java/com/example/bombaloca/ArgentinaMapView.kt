@@ -28,6 +28,19 @@ class ArgentinaMapView @JvmOverloads constructor(
         strokeWidth = 2f
         color = Color.parseColor("#666666")
     }
+    
+    // Constantes de escala compartidas entre onDraw y handleProvinceClick
+    companion object {
+        private const val BASE_SCALE_X_DIVISOR = 85f
+        private const val BASE_SCALE_Y_DIVISOR = 160f
+    }
+    
+    // Función auxiliar para calcular escalas de manera consistente
+    private fun calculateScales(): Pair<Float, Float> {
+        val baseScaleX = width / BASE_SCALE_X_DIVISOR
+        val baseScaleY = height / BASE_SCALE_Y_DIVISOR
+        return Pair(baseScaleX * zoomLevel, baseScaleY * zoomLevel)
+    }
 
     private var provinces = Province.getAllProvinces().toMutableList()
     private var onProvinceClickListener: ((Province) -> Unit)? = null
@@ -40,8 +53,8 @@ class ArgentinaMapView @JvmOverloads constructor(
     private val provinceShapes by lazy { ProvinceDataLoader.loadProvinceShapes(context) }
     
     // Variables para zoom y pan interactivo
-    private var zoomLevel = 0.58f  // Zoom inicial más pequeño (equivale a 3 clicks de zoom out)
-    private var panX = 0f
+    private var zoomLevel = 0.48f  // Zoom inicial más pequeño (equivale a 4 clicks de zoom out: 0.58f / 1.2f ≈ 0.48f)
+    private var panX = -80f  // Posición inicial hacia la derecha (equivale a 2 clicks de flecha derecha: 0f - 40f - 40f = -80f)
     private var panY = -80f  // Posición inicial más abajo (equivale a 2 clicks de flecha abajo)
     
     // Variables para gestos
@@ -132,9 +145,9 @@ class ArgentinaMapView @JvmOverloads constructor(
     }
     
     fun resetPosition() {
-        zoomLevel = 0.58f  // Usar el mismo zoom inicial
-        panX = 0f
-        panY = -80f  // Usar la misma posición inicial
+        zoomLevel = 0.48f  // Usar el mismo zoom inicial (4 clicks de zoom out)
+        panX = -80f  // Usar la misma posición inicial (2 clicks de flecha derecha)
+        panY = -80f  // Usar la misma posición inicial (2 clicks de flecha abajo)
         invalidate()
     }
 
@@ -154,11 +167,7 @@ class ArgentinaMapView @JvmOverloads constructor(
     
     private fun handleProvinceClick(x: Float, y: Float) {
         // Calcular las mismas escalas y offsets que en onDraw
-        val baseScaleX = width / 100f   // Escala base más ancha (igual que en onDraw)
-        val baseScaleY = height / 150f
-        
-        val scaleX = baseScaleX * zoomLevel
-        val scaleY = baseScaleY * zoomLevel
+        val (scaleX, scaleY) = calculateScales()
         
         // Calcular offset para centrar La Pampa en pantalla (mismo cálculo que en onDraw)
         val (centerOffsetX, centerOffsetY) = calculateCenterOffset(scaleX, scaleY)
@@ -245,11 +254,7 @@ class ArgentinaMapView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         // Ajustar escala y posición del mapa con zoom y pan interactivos
-        val baseScaleX = width / 85f   // Escala base más ancha (equivale a ~2 zoom in solo en X)
-        val baseScaleY = height / 160f // Escala base igual para Y
-        
-        val scaleX = baseScaleX * zoomLevel
-        val scaleY = baseScaleY * zoomLevel
+        val (scaleX, scaleY) = calculateScales()
         
         // Calcular offset para centrar La Pampa en pantalla
         val (centerOffsetX, centerOffsetY) = calculateCenterOffset(scaleX, scaleY)

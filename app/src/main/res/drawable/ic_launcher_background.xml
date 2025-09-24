@@ -5,17 +5,7 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     
-    <!-- Fondo celeste y blanco (colores argentinos) -->
-    <path android:fillColor="#75AADB"
-        android:pathData="M0,0L108,0L108,54L0,54Z"/>
+    <!-- Fondo blanco simple -->
     <path android:fillColor="#FFFFFF"
-        android:pathData="M0,54L108,54L108,108L0,108Z"/>
-        
-    <!-- Patrón sutil de rayos -->
-    <path android:fillColor="#FFFFFF"
-        android:fillAlpha="0.1"
-        android:pathData="M54,0L60,20L54,40L48,20Z"/>
-    <path android:fillColor="#75AADB"
-        android:fillAlpha="0.1"
-        android:pathData="M54,68L60,88L54,108L48,88Z"/>
+        android:pathData="M0,0L108,0L108,108L0,108Z"/>
 </vector>
