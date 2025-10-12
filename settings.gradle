@@ -1,2 +1,2 @@
-rootProject.name = 'multiplication-game'
+rootProject.name = 'labomba-game'
 include ':app' 
